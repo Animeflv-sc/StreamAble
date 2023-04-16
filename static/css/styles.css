@@ -47,7 +47,7 @@ nav .nav-items li a{
   text-decoration: none;
 }
 nav .nav-items li a:hover{
-  color: #2596be;
+  color:  #7D5FFF;
 }
 
 nav .menu-icon,
@@ -99,11 +99,11 @@ nav input[type="submit"] {
 }
 
 nav input[type="submit"]:hover {
-  background-color: #2596be;
+  background-color:  #7D5FFF;
 }
 
 nav button[type="submit"] {
-  background-color: #2596be;
+  background-color:  #7D5FFF;
   color: #fff;
   border: none;
   border-radius: 50px;
