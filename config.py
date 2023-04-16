@@ -4,10 +4,10 @@
 from os import getenv
 
 
-API_KEY = "TYEMQI"
+API_KEY = "WENEQB"
 
 if not API_KEY or API_KEY == "Paste Your Key Here" or API_KEY == "":
-    API_KEY = getenv("TYEMQI")
+    API_KEY = getenv("WENEQB")
 
     if not API_KEY:
         raise Exception("Please add your TechZ Api Key in config.py file")
