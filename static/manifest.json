@@ -1,15 +1,15 @@
 {
-  "name": "Animeflv",
-  "short_name": "Animeflv",
+  "name": "StreamAble",
+  "short_name": "StreamAble",
   "description": "Ads Free anime streaming app",
   "icons": [
     {
-      "src": "/static/ApplogoDark.png",
+      "src": "https://od.lk/s/OTBfMzYxNzUxOTBf/favicon.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "/static/ApplogoDark.png",
+      "src": "https://od.lk/s/OTBfMzYxNzUxOTBf/favicon.png",
       "sizes": "512x512",
       "type": "image/png"
     }
