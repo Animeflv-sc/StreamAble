@@ -1,0 +1,78 @@
+{
+  "name": "Animeflv",
+  "short_name": "Animeflv",
+  "description": "Ads Free anime streaming app",
+  "icons": [
+    {
+      "src": "/static/ApplogoDark.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/static/ApplogoDark.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#000000",
+  "theme_color": "#000000",
+  "scope": "/",
+  "permissions": [
+    "INTERNET",
+    "ACCESS_NETWORK_STATE",
+    "WAKE_LOCK",
+    "VIBRATE",
+    "FOREGROUND_SERVICE",
+    "PUSH_NOTIFICATION",
+    "NOTIFICATION_RECEIVE"
+  ],
+  "service_worker": {
+    "src": "service-worker.js",
+    "oninstall": "onInstallEventHandler"
+  },
+  "navigation": {
+    "external": "useless"
+  },
+  "prefer_related_applications": false,
+  "features": {
+    "vibration": true,
+    "keyboard": true,
+    "mouse": {
+      "pointerLock": true,
+      "toggle": true
+    },
+    "gamepad": true
+  },
+  "manifest_version": 2,
+  "version": "1.0",
+  "gcm_sender_id": "879558571577",
+  "gcm_user_visible_only": true,
+  "notification": {
+    "title": "New Animeflv episode released!",
+    "body": "Check out the latest episode now!",
+    "icon": "/static/notification-icon.png",
+    "badge": "/static/notification-badge.png",
+    "vibrate": [200, 100, 200],
+    "data": {
+      "url": "https://animeflv.com",
+      "timestamp": "YYYY-MM-DDThh:mm:ssTZD",
+      "html": "get_recent_html"
+    },
+    "actions": [
+      {
+        "action": "view",
+        "title": "View"
+      },
+      {
+        "action": "dismiss",
+        "title": "Dismiss"
+      }
+    ]
+  },
+  "background_color": "#000000",
+  "offline_page": "offline.html"
+}
+

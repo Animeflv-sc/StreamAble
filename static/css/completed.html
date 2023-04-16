@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="icon" type="image/x-icon" href="https://d1nxzqpcg2bym0.cloudfront.net/google_play/com.anime.flv/ec0213b8-f1d8-11e7-8b0a-7d62278fee98/128x128">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  
+  <title>Completed</title>
+   <link href="./styles.css" rel="stylesheet">
+  <link href="./home.css" rel="stylesheet">
+	 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+<head>
+	
+
+<style>body{   background: #000000;}</style>
+<style>
+#completedList {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 20px;
+}
+
+#completedList li {
+  height: 100%;
+  box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.2);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+#completedList li img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  flex-grow: 1;
+}
+
+#completedList li a {
+  font-size: 16px;
+  text-align: center;
+  color: white;
+  text-decoration: none;
+  margin-bottom: 10px;
+  position: relative;
+  padding: 20px;
+  background-color: #202125;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* Media queries */
+@media only screen and (max-width: 767px) {
+  #completedList {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 10px;
+  }
+
+  #completedList li a {
+    font-size: 14px;
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1199px) {
+  #completedList {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+  }
+
+  #completedList li a {
+    font-size: 16px;
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  #completedList {
+    grid-template-columns: repeat(auto-fit, minmax(225px, 1fr));
+    gap: 25px;
+  }
+
+  #completedList li a {
+    font-size: 18px;
+  }
+}
+
+h1 {
+  text-align: center;
+  color: white;
+  font-size: 24px;
+  margin-top: 15px;
+  margin-bottom: 8px;
+}
+
+
+</style>
+<style>
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.navbar {
+  overflow: hidden;
+  background-color: rgba(51, 51, 51, 0);
+  position: static;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 12px; 
+}
+
+.navbar a {
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.navbar a:hover {
+  background: #f1f1f1;
+  color: black;
+}
+
+.navbar a.active {
+  background-color: #2596be;
+  color: white;
+}
+
+.main {
+  padding: 16px;
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+
+</style>
+
+</head>
+
+<body>
+  <nav>
+         <div class="menu-icon">
+            <span class="fas fa-bars"></span>
+         </div>
+         <div class="logo">
+            <a href="#"><img src="https://od.lk/s/OTBfMzU2NDQ1MTBf/animeflv.png"></a>
+         </div>
+         <div class="nav-items">
+		 <li><a href="/">Home</a></li>
+             <li><a href="./bookmark.html">Bookmark</a></li>
+         </div>
+         <div class="search-icon">
+            <span class="fas fa-search"></span>
+         </div>
+         <div class="cancel-icon">
+            <span class="fas fa-times"></span>
+         </div>
+                    <form action="/search" method='GET'>
+                <input type="text" name="query" id="query" placeholder="Search Anime..." required>
+                <button type="submit"><i class="fa fa-search"></i>
+                </button>
+            </form>
+        </div>
+      </nav>
+ 
+	<div class="navbar">
+  <a href="./watchlist.html" id="watchlist-link">Watchlist</a>
+  <a href="./completed.html" id="completed-link" class="active">Completed</a>
+</div>
+   
+   <ul id="completedList">
+      <!-- Completed items will be added dynamically with JavaScript -->
+    </ul>
+	<script>
+  const watchlistLink = document.getElementById("watchlist-link");
+  const completedLink = document.getElementById("completed-link");
+
+  // Add event listener to watchlist link
+  watchlistLink.addEventListener("click", () => {
+    watchlistLink.classList.add("active");
+    completedLink.classList.remove("active");
+  });
+
+  // Add event listener to completed link
+  completedLink.addEventListener("click", () => {
+    completedLink.classList.add("active");
+    watchlistLink.classList.remove("active");
+  });
+</script>
+  <script>
+const menuBtn = document.querySelector(".menu-icon span"); 
+const searchBtn = document.querySelector(".search-icon"); 
+const cancelBtn = document.querySelector(".cancel-icon"); 
+const items = document.querySelector(".nav-items"); 
+const form = document.querySelector("form"); 
+
+menuBtn.onclick = () => { 
+  items.classList.add("active"); 
+  menuBtn.classList.add("hide"); 
+  searchBtn.classList.add("hide"); 
+  cancelBtn.classList.add("show"); 
+  document.body.style.overflow = "hidden"; // prevent scrolling 
+}
+
+cancelBtn.onclick = () => { 
+  items.classList.remove("active"); 
+  menuBtn.classList.remove("hide"); 
+  searchBtn.classList.remove("hide"); 
+  cancelBtn.classList.remove("show"); 
+  form.classList.remove("active"); 
+  cancelBtn.style.color = "#ff3d00"; 
+  document.body.style.overflow = "auto"; // enable scrolling 
+}
+
+searchBtn.onclick = () => { 
+  form.classList.add("active");		 
+  form.style.display = "inline-block"; // or "flex" 
+  searchBtn.classList.add("hide"); 
+  cancelBtn.classList.add("show"); 
+  document.body.style.overflow = "hidden"; // prevent scrolling 
+}
+
+// Get the completed list from local storage
+const completedList = JSON.parse(localStorage.getItem("completedList")) || [];
+
+// Add each anime in the completed list to the HTML file
+completedList.forEach((anime) => {
+  const li = document.createElement("li");
+  const img = document.createElement("img");
+  img.src = anime.img;
+  img.alt = anime.title;
+  const a = document.createElement("a");
+  a.href = anime.link;
+  a.textContent = anime.title;
+  const removeBtn = document.createElement("button");
+  removeBtn.textContent = "Remove";
+// Add the given style to the removeBtn
+removeBtn.style.width = "100%";
+removeBtn.style.backgroundColor = "#2596be";
+removeBtn.style.color = "white";
+removeBtn.style.fontSize = "14px";
+removeBtn.style.border = "none";
+removeBtn.style.padding = "15px 20px";
+removeBtn.style.borderRadius = "10px";
+removeBtn.style.cursor = "pointer";
+removeBtn.style.position = "relative";
+removeBtn.style.alignSelf = "flex-end";
+  removeBtn.addEventListener("click", () => {
+    const confirmRemove = confirm("Are you sure you want to remove this anime from the completed list?");
+    if (confirmRemove) {
+      const index = completedList.indexOf(anime);
+      completedList.splice(index, 1);
+      localStorage.setItem("completedList", JSON.stringify(completedList));
+      document.getElementById("completedList").removeChild(li);
+      document.getElementById("watchlist").appendChild(li);
+    }
+  });
+  li.appendChild(img);
+  li.appendChild(a);
+  li.appendChild(removeBtn);
+  document.getElementById("completedList").appendChild(li);
+});
+
+</script>
+</body>
+</html>
