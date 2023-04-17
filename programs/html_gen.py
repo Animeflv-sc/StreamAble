@@ -45,9 +45,9 @@ def get_eps_html2(data):
     return html
 
 
-ANIME_POS = """<a href="{}"><div class="poster la-anime"> <div id="shadow1" class="shadow"> <div class="dubb">{}</div><div class="dubb dubb2">{}</div></div><div id="shadow2" class="shadow"> <img class="lzy_img" src="https://od.lk/s/OTBfMzYxOTA0MDlf/loader.gif" data-src="{}"> </div><div class="la-details"> <h3>{}</h3> <div id="extra"> <span>{}</span> <span class="dot"></span> <span>{}</span> </div></div></div></a>"""
+ANIME_POS = """<a href="{}"><div class="poster la-anime"> <div id="shadow1" class="shadow"> <div class="dubb">{}</div><div class="dubb dubb2">{}</div></div><div id="shadow2" class="shadow"> <img class="lzy_img" src="https://od.lk/s/OTBfMzYxOTA0MjVf/loader.gif" data-src="{}"> </div><div class="la-details"> <h3>{}</h3> <div id="extra"> <span>{}</span> <span class="dot"></span> <span>{}</span> </div></div></div></a>"""
 
-ANIME_POS2 = """<a href="{}"><div class="poster la-anime"> <div id="shadow1" class="shadow"> <div class="dubb">{}</div></div><div id="shadow2" class="shadow"> <img class="lzy_img" src="https://od.lk/s/OTBfMzYxOTA0MDlf/loader.gif" data-src="{}"> </div><div class="la-details"> <h3>{}</h3> <div id="extra"> <span>{}</span> </div></div></div></a>"""
+ANIME_POS2 = """<a href="{}"><div class="poster la-anime"> <div id="shadow1" class="shadow"> <div class="dubb">{}</div></div><div id="shadow2" class="shadow"> <img class="lzy_img" src="https://od.lk/s/OTBfMzYxOTA0MjVf/loader.gif" data-src="{}"> </div><div class="la-details"> <h3>{}</h3> <div id="extra"> <span>{}</span> </div></div></div></a>"""
 
 
 def animeRecHtml(data):
