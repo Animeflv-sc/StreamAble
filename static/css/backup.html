@@ -30,6 +30,7 @@
     <meta property="twitter:card" content="summary">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar" content="#202125">
+	<link href="styles.css" rel="stylesheet">
 	<style>
 	/* Body Styles */
 body {
@@ -104,12 +105,66 @@ li:hover {
 
 	</style>
 </head>
-<body>
+<body><nav>
+  <div class="menu-icon">
+    <span class="fas fa-bars"></span>
+  </div>
+  <div class="logo">
+    <a href="#"><img src="https://od.lk/s/OTBfMzU2NDg5MDhf/logo.png"></a>
+  </div>
+  <ul class="nav-items">
+    <li><a href="/">Home</a></li>
+    <li><a href="bookmark.html">Bookmark</a></li>
+    <li><a href="watchlist.html">Watchlist</a></li>
+    <li><a href="https://www.livechart.me/timetable" target="_blank">Schedule</a></li>
+    <li><a href="settings.html">Settings</a></li>
+  </ul>
+  <div class="search-icon">
+    <span class=""></span>
+  </div>
+  <div class="cancel-icon">
+    <span class="fas fa-times"></span>
+  </div>
+
+</nav>
 	<h1>Backup and Restore</h1>
 	<p>Click on the links below to go to the backup or restore page:</p>
 	<ul>
 		<li><a href="login.html">Create backup</a></li>
 		<li><a href="restore.html">Restore backup</a></li>
 	</ul>
+	<script>    
+const menuBtn = document.querySelector(".menu-icon span"); 
+const searchBtn = document.querySelector(".search-icon"); 
+const cancelBtn = document.querySelector(".cancel-icon"); 
+const items = document.querySelector(".nav-items"); 
+const form = document.querySelector("form"); 
+
+menuBtn.onclick = () => { 
+  items.classList.add("active"); 
+  menuBtn.classList.add("hide"); 
+  searchBtn.classList.add("hide"); 
+  cancelBtn.classList.add("show"); 
+  document.body.style.overflow = "hidden"; // prevent scrolling 
+}
+
+cancelBtn.onclick = () => { 
+  items.classList.remove("active"); 
+  menuBtn.classList.remove("hide"); 
+  searchBtn.classList.remove("hide"); 
+  cancelBtn.classList.remove("show"); 
+  form.classList.remove("active"); 
+  cancelBtn.style.color = "#ff3d00"; 
+  document.body.style.overflow = "auto"; // enable scrolling 
+}
+
+searchBtn.onclick = () => { 
+  form.classList.add("active");		 
+  form.style.display = "inline-block"; // or "flex" 
+  searchBtn.classList.add("hide"); 
+  cancelBtn.classList.add("show"); 
+  document.body.style.overflow = "hidden"; // prevent scrolling 
+}  
+</script>
 </body>
 </html>
