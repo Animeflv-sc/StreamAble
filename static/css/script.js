@@ -12,16 +12,18 @@ const firebaseConfig = {
     messagingSenderId: "710961899998",
     appId: "1:710961899998:web:7f79123b6e67129bc8154f"
 };
+
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const auth = getAuth(app);
+const database = getDatabase(app);
 
 const submitButton = document.getElementById("submit");
 const signupButton = document.getElementById("sign-up");
 const emailInput = document.getElementById("email");
 const passwordInput = document.getElementById("password");
 const main = document.getElementById("main");
-const createacct = document.getElementById("create-acct")
+const createacct = document.getElementById("create-acct");
 
 const signupEmailIn = document.getElementById("email-signup");
 const confirmSignupEmailIn = document.getElementById("confirm-email-signup");
@@ -60,7 +62,11 @@ createacctbtn.addEventListener("click", function() {
       .then((userCredential) => {
       // Signed in 
       const user = userCredential.user;
-      // ...
+      const uid = user.uid;
+      const usersRef = ref(database, 'users/' + uid);
+      set(usersRef, {
+        email: signupEmail
+      });
       window.alert("Success! Account created.");
     })
     .catch((error) => {
@@ -71,7 +77,6 @@ createacctbtn.addEventListener("click", function() {
     });
   }
 });
-
 submitButton.addEventListener("click", function() {
   email = emailInput.value;
   console.log(email);
