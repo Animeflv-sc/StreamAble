@@ -107,28 +107,35 @@ p {
 <script src="https://apis.google.com/js/api.js"></script>
 
 <script>
-	function createBackup() {
-  // Combine all anime in the watchlist, completedList and bookmarks
-  const allAnime = watchlist.concat(completedList, bookmarks);
-
-  // Create a JSON object of all the anime data
-  const data = JSON.stringify(allAnime);
-
-  // Create a Blob object from the JSON data
-  const blob = new Blob([data], {type: "application/json"});
-
-  // Create a link element and set its attributes
-  const link = document.createElement("a");
-  link.href = URL.createObjectURL(blob);
-  link.download = "anime_backup.json";
-
-  // Prompt the user if they want to download the backup
-  const download = confirm("Do you want to download the backup of your anime lists?");
-  if (download) {
-    // Click the link to download the backup
-    link.click();
-  }
+function createBackup() {
+  const watchlist = JSON.parse(localStorage.getItem('watchlist')) || [];
+  const completedList = JSON.parse(localStorage.getItem('completedList')) || [];
+  const bookmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];
+  
+  const backupData = {
+    watchlist,
+    completedList,
+    bookmarks,
+  };
+  
+  const backupFilename = 'anime_backup_' + new Date().getTime() + '.json';
+  const backupDataBlob = new Blob([JSON.stringify(backupData)], {type: 'application/json'});
+  
+  const downloadLink = document.createElement('a');
+  downloadLink.download = backupFilename;
+  downloadLink.href = URL.createObjectURL(backupDataBlob);
+  
+  downloadLink.onclick = () => {
+    if (confirm('Are you sure you want to download the backup?')) {
+      downloadLink.click();
+    }
+  };
+  
+  downloadLink.style.display = 'none';
+  document.body.appendChild(downloadLink);
+  downloadLink.click();
 }
+
 
 </script>
 
