@@ -111,86 +111,30 @@ function createBackup() {
   const watchlist = JSON.parse(localStorage.getItem('watchlist')) || [];
   const completedList = JSON.parse(localStorage.getItem('completedList')) || [];
   const bookmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];
-
+  
   const backupData = {
     watchlist,
     completedList,
     bookmarks,
   };
-
+  
   const backupFilename = 'anime_backup_' + new Date().getTime() + '.json';
   const backupDataBlob = new Blob([JSON.stringify(backupData)], {type: 'application/json'});
-
-  const uploadFile = (file, email, folderId) => {
-    gapi.load('client:auth2', () => {
-      gapi.auth2.getAuthInstance().signIn().then(() => {
-        gapi.client.load('drive', 'v3', () => {
-          const fileMetadata = {
-            name: file.name,
-            parents: [folderId],
-          };
-          const media = {
-            mimeType: file.type,
-            body: file,
-          };
-          gapi.client.drive.files.create({
-            resource: fileMetadata,
-            media: media,
-            fields: 'id',
-          }).then((response) => {
-            const fileId = response.result.id;
-            const permission = {
-              type: 'user',
-              role: 'writer',
-              emailAddress: email,
-            };
-            gapi.client.drive.permissions.create({
-              fileId: fileId,
-              resource: permission,
-            }).then(() => {
-              console.log('File uploaded to Google Drive');
-            }).catch((error) => {
-              console.error('Error adding permission to file:', error);
-            });
-          }).catch((error) => {
-            console.error('Error uploading file to Google Drive:', error);
-          });
-        });
-      });
-    });
-  };
-
-  const uploadBackup = () => {
-    const email = prompt('Enter the email address of the user you want to share the backup with:');
-    if (email === null) {
-      return;
-    }
-    const folderId = prompt('Enter the ID of the folder you want to upload the backup to:');
-    if (folderId === null) {
-      return;
-    }
-    const file = new File([backupDataBlob], backupFilename, { type: 'application/json' });
-    uploadFile(file, email, folderId);
-  };
-
+  
   const downloadLink = document.createElement('a');
   downloadLink.download = backupFilename;
   downloadLink.href = URL.createObjectURL(backupDataBlob);
-
+  
   downloadLink.onclick = (event) => {
-    if (!confirm('Are you sure you want to upload the backup to Google Drive?')) {
+    if (!confirm('Are you sure you want to download the backup?')) {
       event.preventDefault();
-      return;
     }
-    event.preventDefault();
-    uploadBackup();
   };
-
+  
   downloadLink.style.display = 'none';
   document.body.appendChild(downloadLink);
   downloadLink.click();
 }
-
 
 function restoreBackup() {
   const fileInput = document.createElement('input');
