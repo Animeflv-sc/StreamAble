@@ -121,20 +121,48 @@ function createBackup() {
   const backupFilename = 'anime_backup_' + new Date().getTime() + '.json';
   const backupDataBlob = new Blob([JSON.stringify(backupData)], {type: 'application/json'});
   
-  const downloadLink = document.createElement('a');
-  downloadLink.download = backupFilename;
-  downloadLink.href = URL.createObjectURL(backupDataBlob);
-  
-  downloadLink.onclick = (event) => {
-    if (!confirm('Are you sure you want to download the backup?')) {
-      event.preventDefault();
+  // Authorize with Google Drive API
+  gapi.auth2.authorize({
+    client_id: '879558571577-b1bj9feh05uoie5f0cpl9bdm6s4c7ejl.apps.googleusercontent.com',
+    scope: 'https://www.googleapis.com/auth/drive.file',
+    immediate: false
+  }, (authResult) => {
+    if (authResult && !authResult.error) {
+      const accessToken = authResult.access_token;
+      
+      // Upload backup file to Google Drive
+      const metadata = {
+        name: backupFilename,
+        mimeType: 'application/json'
+      };
+      
+      const form = new FormData();
+      form.append('metadata', new Blob([JSON.stringify(metadata)], {type: 'application/json'}));
+      form.append('file', backupDataBlob);
+      
+      fetch('https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id', {
+        method: 'POST',
+        headers: {
+          'Authorization': 'Bearer ' + accessToken
+        },
+        body: form
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log('Backup file uploaded to Google Drive:', data);
+        alert('Backup file uploaded to your Google Drive account.');
+      })
+      .catch(error => {
+        console.error('Error uploading backup file to Google Drive:', error);
+        alert('Error uploading backup file to your Google Drive account.');
+      });
+    } else {
+      console.error('Error authorizing with Google Drive API:', authResult.error);
+      alert('Error authorizing with Google Drive API.');
     }
-  };
-  
-  downloadLink.style.display = 'none';
-  document.body.appendChild(downloadLink);
-  downloadLink.click();
+  });
 }
+
 
 function restoreBackup() {
   const fileInput = document.createElement('input');
