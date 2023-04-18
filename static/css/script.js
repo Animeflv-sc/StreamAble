@@ -4,12 +4,21 @@ import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } f
 
 const firebaseConfig = {
     apiKey: "AIzaSyAn7QiOmZcOkdCXS9Ugp0S6gGMx7x-cDIk",
+
     authDomain: "login-app-695a4.firebaseapp.com",
+
+    databaseURL: "https://login-app-695a4-default-rtdb.firebaseio.com",
+
     projectId: "login-app-695a4",
+
     storageBucket: "login-app-695a4.appspot.com",
+
     messagingSenderId: "710961899998",
+
     appId: "1:710961899998:web:7f79123b6e67129bc8154f"
+
 };
+
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const auth = getAuth(app);
