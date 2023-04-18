@@ -1,8 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-analytics.js";
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-auth.js";
-import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-database.js";
-
 
 const firebaseConfig = {
     apiKey: "AIzaSyA_-0rmQRfbbBlD1V6v1MzXGnuLkt3VpR4",
@@ -20,7 +18,6 @@ const firebaseConfig = {
     appId: "1:949892021523:web:508b3381ff9561c96c6ee6",
 
     measurementId: "G-4XML440EY8"
-
 };
 
 const app = initializeApp(firebaseConfig);
@@ -69,19 +66,12 @@ createacctbtn.addEventListener("click", function() {
   if(isVerified) {
     createUserWithEmailAndPassword(auth, signupEmail, signupPassword)
       .then((userCredential) => {
-        // Signed in 
-        const user = userCredential.user;
-        // Add the user to the database
-        set(ref(database, 'users/' + user.uid), {
-          email: signupEmail
-        }).then(() => {
-          window.alert("Success! Account created.");
-           window.location.href = "./login.html"; // redirect to homepage
-        }).catch((error) => {
-          console.error(error);
-          window.alert("Error occurred. Try again.");
-        });
-      })
+      // Signed in 
+      const user = userCredential.user;
+      // ...
+      window.alert("Success! Account created.");
+         window.location.href = "./login.html"; // redirect to homepage
+    })
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
@@ -103,7 +93,7 @@ submitButton.addEventListener("click", function() {
       const user = userCredential.user;
       console.log("Success! Welcome back!");
       window.alert("Success! Welcome back!");
-       window.location.href = "./settings.html"; // redirect to settings.html
+       window.location.href = "./settings.html"; // redirect to homepage
       // ...
     })
     .catch((error) => {
