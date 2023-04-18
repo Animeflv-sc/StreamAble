@@ -34,6 +34,32 @@
   <link rel = "stylesheet" href = "./login.css">
 </head>
 <body>
+	<nav>
+  <div class="menu-icon">
+    <span class="fas fa-bars"></span>
+  </div>
+  <div class="logo">
+    <a href="#"><img src="../static/img/logo.png"></a>
+  </div>
+  <ul class="nav-items">
+    <li><a href="/">Home</a></li>
+    <li><a href="../static/css/bookmark.html">Bookmark</a></li>
+    <li><a href="../static/css/watchlist.html">Watchlist</a></li>
+    <li><a href="https://www.livechart.me/timetable" target="_blank">Schedule</a></li>
+    <li><a href="../static/css/settings.html">Settings</a></li>
+  </ul>
+  <div class="search-icon">
+    <span class="fas fa-search"></span>
+  </div>
+  <div class="cancel-icon">
+    <span class="fas fa-times"></span>
+  </div>
+  <form action="/search" method="GET">
+    <input type="text" name="query" id="query" placeholder="Search Anime..." required>
+    <button type="submit"><i class="fa fa-search"></i></button>
+  </form>
+</nav>
+	
   <div class = "login-container">
     <div id= "main">
       <h1>Sign In</h1>
