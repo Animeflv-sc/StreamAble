@@ -2,6 +2,8 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/9.19.1/firebas
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-analytics.js";
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-auth.js";
 import { getDatabase, ref, set, update} from "https://www.gstatic.com/firebasejs/9.19.1/firebase-database.js";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-auth.js";
+
 
 
 const firebaseConfig = {
@@ -46,7 +48,6 @@ const returnBtn = document.getElementById("return-btn");
 var email, password, signupEmail, signupPassword, confirmSignupEmail, confirmSignUpPassword;
 
 // Initialize Firebase Authentication
-const auth = getAuth();
 onAuthStateChanged(auth, (user) => {
   if (user) {
     // User is signed in
