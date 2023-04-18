@@ -5,12 +5,22 @@ import { getDatabase, ref, set, update} from "https://www.gstatic.com/firebasejs
 
 
 const firebaseConfig = {
-    apiKey: "AIzaSyAn7QiOmZcOkdCXS9Ugp0S6gGMx7x-cDIk",
-    authDomain: "login-app-695a4.firebaseapp.com",
-    projectId: "login-app-695a4",
-    storageBucket: "login-app-695a4.appspot.com",
-    messagingSenderId: "710961899998",
-    appId: "1:710961899998:web:7f79123b6e67129bc8154f"
+apiKey: "AIzaSyA_-0rmQRfbbBlD1V6v1MzXGnuLkt3VpR4",
+
+    authDomain: "backup-and-restore-79f0c.firebaseapp.com",
+
+    databaseURL: "https://backup-and-restore-79f0c-default-rtdb.firebaseio.com",
+
+    projectId: "backup-and-restore-79f0c",
+
+    storageBucket: "backup-and-restore-79f0c.appspot.com",
+
+    messagingSenderId: "949892021523",
+
+    appId: "1:949892021523:web:508b3381ff9561c96c6ee6",
+
+    measurementId: "G-4XML440EY8"
+
 };
 
 const app = initializeApp(firebaseConfig);
