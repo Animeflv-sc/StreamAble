@@ -104,10 +104,10 @@ submitButton.addEventListener("click", function() {
   signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       const user = userCredential.user;
-      console.log("Success! Welcome back!");
+      console.log("Success! you data has been Backup!");
 
       // Redirect to homepage after Firebase Authentication is successful
-      window.location.href = "/"; 
+      window.location.href = "./settings.html"; 
     })
     .catch((error) => {
       console.error("Error occurred while signing in:", error);
