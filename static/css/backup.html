@@ -107,33 +107,38 @@ p {
 
 <script>
 function createBackup() {
-const googleDriveEmail = prompt("Please enter your Google Drive email to upload the backup.");
+  const googleDriveEmail = prompt("Please enter your Google Drive email to upload the backup.");
 
-// create backup of watchlist, completedList, and bookmarks
-const backupData = {
-watchlist: getWatchlist(),
-completedList: getCompletedList(),
-bookmarks: getBookmarks()
-};
+  // create backup of watchlist, completedList, and bookmarks
+  const backupData = {
+    watchlist: JSON.parse(localStorage.getItem("watchlist")) || [],
+    completedList: JSON.parse(localStorage.getItem("completedList")) || [],
+    bookmarks: JSON.parse(localStorage.getItem("bookmarks")) || []
+  };
 
-// convert backup data to JSON string
-const backupString = JSON.stringify(backupData);
+  // convert backup data to JSON string
+  const backupString = JSON.stringify(backupData);
 
-// create a new file in Google Drive
-const file = DriveApp.createFile('my_backup.json', backupString);
+  // create a new file in Google Drive
+  const file = DriveApp.createFile('my_backup.json', backupString);
 
-// share the file with the specified Google Drive email
-file.addViewer(googleDriveEmail);
+  // share the file with the specified Google Drive email
+  file.addViewer(googleDriveEmail);
 
-// check if the file was successfully created and shared
-if (file.getUrl() && file.getSharingAccess() === DriveApp.Access.VIEW) {
-// log success message
-console.log(Backup created and shared with ${googleDriveEmail}!);
-} else {
-// log error message
-console.error(Error creating backup. Please try again later.);
+  // check if the file was created successfully
+  if (file.getId()) {
+    // log success message
+    console.log(`Backup created and shared with ${googleDriveEmail}!`);
+    // return success message
+    return "Backup created and shared successfully!";
+  } else {
+    // log error message
+    console.error("Error creating backup!");
+    // return error message
+    return "Error creating backup!";
+  }
 }
-}
+
 
   
   function restoreBackup() {
