@@ -104,8 +104,21 @@ p {
   <li><button onclick="createBackup()">Create backup</button></li>
   <li><button onclick="restoreBackup()">Restore backup</button></li>
 </ul>
+<script src="https://apis.google.com/js/api.js"></script>
 
 <script>
+function initClient() {
+  gapi.client.init({
+    apiKey: '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',
+    clientId: '879558571577-b1bj9feh05uoie5f0cpl9bdm6s4c7ejl.apps.googleusercontent.com',
+    discoveryDocs: ['https://www.googleapis.com/discovery/v1/apis/drive/v3/rest'],
+    scope: 'https://www.googleapis.com/auth/drive.file'
+  }).then(() => {
+    // API initialized successfully
+  }, (error) => {
+    console.log(error);
+  });
+}
 	function createBackup() {
   // Step 1: Create a JSON file with all the necessary data
   const backupData = {
@@ -115,55 +128,21 @@ p {
   };
   const backupJson = JSON.stringify(backupData);
 
-  // Step 2: Upload the JSON file to Google Drive
-  const fileMetadata = {
-    name: 'my-backup.json'
-  };
-  const accessToken = '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'; // replace with the access token obtained after authorizing the app
-  const headers = {
-    Authorization: `Bearer ${accessToken}`,
-    'Content-Type': 'application/json'
-  };
-  fetch('https://www.googleapis.com/upload/drive/v3/files?uploadType=media', {
-    method: 'POST',
-    headers,
-    body: backupJson
-  })
-  .then(response => response.json())
-  .then(data => {
-    // Step 3: Store the file ID in the backupData object
-    backupData.fileId = data.id;
-    const backupJsonWithFileId = JSON.stringify(backupData);
-    localStorage.setItem("backupData", backupJsonWithFileId);
-
-    // Step 4: Notify the user once the backup is created successfully
+  // Step 2: Store the JSON file on Google Drive
+  gapi.client.drive.files.create({
+    resource: {
+      name: 'backup.json'
+    },
+    media: {
+      mimeType: 'application/json',
+      body: backupJson
+    }
+  }).then((response) => {
+    // Step 5: Notify the user once the backup is created successfully
     alert("Backup created successfully.");
-  })
-  .catch(error => {
-    console.error(error);
-    alert("Error creating backup.");
+  }, (error) => {
+    console.log(error);
   });
-}
-
-// Restore Mechanism
-function restoreBackup() {
-// Step 1: Check if a backup file is available
-const backupJson = localStorage.getItem("backupData");
-if (!backupJson) {
-alert("No backup found.");
-return;
-}
-
-// Step 2: If the backup file is available, retrieve the data from the JSON file
-const backupData = JSON.parse(backupJson);
-
-// Step 3: Load the data into the application
-localStorage.setItem("watchlist", JSON.stringify(backupData.watchlist));
-localStorage.setItem("completedList", JSON.stringify(backupData.completedList));
-localStorage.setItem("bookmarks", JSON.stringify(backupData.bookmarks));
-
-// Step 4: Notify the user once the data is loaded successfully
-alert("Backup restored successfully.");
 }
 
 </script>
