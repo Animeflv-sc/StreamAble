@@ -48,30 +48,29 @@ const returnBtn = document.getElementById("return-btn");
 
 var email, password, signupEmail, signupPassword, confirmSignupEmail, confirmSignUpPassword;
 
+// Initialize Firebase Authentication
 onAuthStateChanged(auth, (user) => {
   if (user) {
+    // User is signed in
     const userId = user.uid;
-    userRef = ref(database, `users/${userId}`);
 
+    // Get the data from localStorage
     const watchlist = JSON.parse(localStorage.getItem("watchlist")) || [];
     const bookmarks = JSON.parse(localStorage.getItem("bookmarks")) || [];
     const completedList = JSON.parse(localStorage.getItem("completedList")) || [];
 
-    //Check if user has a watchlist in the database, and if yes, compare with localstorage data
-    get(userRef).then((snapshot) => {
+    // Check if the user is logging in from a different device
+    const userDataRef = ref(database, `users/${userId}`);
+    get(userDataRef).then((snapshot) => {
       const userData = snapshot.val();
-      if (userData && userData.watchlist) {
-        userData.watchlist.forEach((anime) => {
-          if (watchlist.some((localAnime) => localAnime.title === anime.title)) {
-            //if localstorage data has same anime title as database, remove it from watchlist
-            watchlist.splice(watchlist.findIndex((localAnime) => localAnime.title === anime.title), 1);
-          }
-        });
-      }
-
-      //if watchlist isn't empty, update the database
-      if (watchlist.length > 0) {
-        set(userRef, {
+      const isSameDevice = (userData.watchlist && userData.bookmarks && userData.completedList)
+        && JSON.stringify(userData.watchlist) === JSON.stringify(watchlist)
+        && JSON.stringify(userData.bookmarks) === JSON.stringify(bookmarks)
+        && JSON.stringify(userData.completedList) === JSON.stringify(completedList);
+      
+      // Store the data in Firebase Realtime database if it's the same device
+      if (isSameDevice) {
+        set(userDataRef, {
           email: user.email,
           watchlist,
           bookmarks,
@@ -81,14 +80,29 @@ onAuthStateChanged(auth, (user) => {
         }).catch((error) => {
           console.error("Error occurred while saving data to Firebase Realtime Database:", error);
         });
+      } else {
+        // Update the data in Firebase Realtime database if it's a different device
+        const updateWatchlist = watchlist.length > 0 ? watchlist : userData.watchlist || [];
+        const updateBookmarks = bookmarks.length > 0 ? bookmarks : userData.bookmarks || [];
+        const updateCompletedList = completedList.length > 0 ? completedList : userData.completedList || [];
+        
+        const updatedData = {
+          email: user.email,
+          watchlist: updateWatchlist,
+          bookmarks: updateBookmarks,
+          completedList: updateCompletedList,
+        };
+
+        const updateDataRef = ref(database, `users/${userId}`);
+        update(updateDataRef, updatedData).then(() => {
+          console.log("Data updated in Firebase Realtime Database.");
+        }).catch((error) => {
+          console.error("Error occurred while updating data in Firebase Realtime Database:", error);
+        });
       }
     });
   }
 });
-
-
-
-
 createacctbtn.addEventListener("click", function() {
   var isVerified = true;
 
@@ -173,37 +187,4 @@ returnBtn.addEventListener("click", function() {
     main.style.display = "block";
     createacct.style.display = "none";
 });
-
-submitButton.addEventListener("click", function() {
-  const watchlist = JSON.parse(localStorage.getItem("watchlist")) || [];
-  const bookmarks = JSON.parse(localStorage.getItem("bookmarks")) || [];
-  const completedList = JSON.parse(localStorage.getItem("completedList")) || [];
-
-  //Update database only if watchlist isn't empty
-  if (watchlist.length > 0) {
-    //Check if user has a watchlist in the database, and if yes, compare with localstorage data
-    get(userRef).then((snapshot) => {
-      const userData = snapshot.val();
-      if (userData && userData.watchlist) {
-        userData.watchlist.forEach((anime) => {
-          if (watchlist.some((localAnime) => localAnime.title === anime.title)) {
-            //if localstorage data has same anime title as database, remove it from watchlist
-            watchlist.splice(watchlist.findIndex((localAnime) => localAnime.title === anime.title), 1);
-          }
-        });
-      }
-
-      set(userRef, {
-        watchlist,
-        bookmarks,
-        completedList,
-      }).then(() => {
-        console.log("Data updated in Firebase Realtime Database.");
-      }).catch((error) => {
-        console.error("Error occurred while updating data in Firebase Realtime Database:", error);
-      });
-    });
-  }
-});
-
 
