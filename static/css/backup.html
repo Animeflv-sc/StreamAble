@@ -106,20 +106,29 @@ p {
 </ul>
 
 <script>
- function createBackup() {
-  const data = {
-    watchlist: JSON.stringify(watchlist),
-    completedList: JSON.stringify(completedList),
-    bookmarks: JSON.stringify(bookmarks)
+function createBackup() {
+  const googleDriveEmail = prompt("Please enter your Google Drive email to upload the backup.");
+  
+  // create backup of watchlist, completedList, and bookmarks
+  const backupData = {
+    watchlist: getWatchlist(),
+    completedList: getCompletedList(),
+    bookmarks: getBookmarks()
   };
-  const blob = new Blob([JSON.stringify(data)], { type: 'application/json' });
-  const url = URL.createObjectURL(blob);
-  const link = document.createElement('a');
-  link.href = url;
-  link.download = 'myBackup.json';
-  link.click();
-  URL.revokeObjectURL(url);
+  
+  // convert backup data to JSON string
+  const backupString = JSON.stringify(backupData);
+  
+  // create a new file in Google Drive
+  const file = DriveApp.createFile('my_backup.json', backupString);
+  
+  // share the file with the specified Google Drive email
+  file.addViewer(googleDriveEmail);
+  
+  // log success message
+  console.log(`Backup created and shared with ${googleDriveEmail}!`);
 }
+
 
   
   function restoreBackup() {
