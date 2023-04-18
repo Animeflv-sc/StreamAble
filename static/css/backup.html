@@ -111,41 +111,29 @@ function createBackup() {
   const watchlist = JSON.parse(localStorage.getItem('watchlist')) || [];
   const completedList = JSON.parse(localStorage.getItem('completedList')) || [];
   const bookmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];
-
+  
   const backupData = {
     watchlist,
     completedList,
     bookmarks,
   };
-
+  
   const backupFilename = 'anime_backup_' + new Date().getTime() + '.json';
-  const backupDataBlob = new Blob([JSON.stringify(backupData)], { type: 'application/json' });
-
+  const backupDataBlob = new Blob([JSON.stringify(backupData)], {type: 'application/json'});
+  
   const downloadLink = document.createElement('a');
   downloadLink.download = backupFilename;
   downloadLink.href = URL.createObjectURL(backupDataBlob);
-
+  
   downloadLink.onclick = (event) => {
-    event.preventDefault();
-    if (confirm('Are you sure you want to download the backup?')) {
-      downloadLink.removeEventListener('click', handleClick);
-      downloadLink.click();
+    if (!confirm('Are you sure you want to download the backup?')) {
+      event.preventDefault();
     }
   };
-
-  function handleClick(event) {
-    event.preventDefault();
-    if (confirm('Are you sure you want to download the backup?')) {
-      downloadLink.removeEventListener('click', handleClick);
-      downloadLink.click();
-    } else {
-      downloadLink.removeEventListener('click', handleClick);
-    }
-  }
-
-  downloadLink.addEventListener('click', handleClick);
+  
   downloadLink.style.display = 'none';
   document.body.appendChild(downloadLink);
+  downloadLink.click();
 }
 
 function restoreBackup() {
