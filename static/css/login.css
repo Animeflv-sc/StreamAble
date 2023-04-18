@@ -47,7 +47,7 @@ input, button {
 }
 /* Set a style for all buttons */
 button {
-  background-color: #fff;
+  background-color: grey;
   color: white;
   padding: 14px 20px;
   margin: 8px 0;
