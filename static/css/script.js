@@ -29,6 +29,7 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const auth = getAuth(app);
 const database = getDatabase(app);
+let userRef;
 
 const submitButton = document.getElementById("submit");
 const signupButton = document.getElementById("sign-up");
@@ -47,11 +48,11 @@ const returnBtn = document.getElementById("return-btn");
 
 var email, password, signupEmail, signupPassword, confirmSignupEmail, confirmSignUpPassword;
 
-// Initialize Firebase Authentication
 onAuthStateChanged(auth, (user) => {
   if (user) {
     // User is signed in
     const userId = user.uid;
+    userRef = ref(database, `users/${userId}`);
 
     // Get the data from localStorage
     const watchlist = JSON.parse(localStorage.getItem("watchlist")) || [];
@@ -59,7 +60,7 @@ onAuthStateChanged(auth, (user) => {
     const completedList = JSON.parse(localStorage.getItem("completedList")) || [];
 
     // Store the data in Firebase Realtime database
-    set(ref(database, `users/${userId}`), {
+    set(userRef, {
       email: user.email,
       watchlist,
       bookmarks,
@@ -139,4 +140,20 @@ signupButton.addEventListener("click", function() {
 returnBtn.addEventListener("click", function() {
     main.style.display = "block";
     createacct.style.display = "none";
+});
+
+submitButton.addEventListener("click", function() {
+  const watchlist = JSON.parse(localStorage.getItem("watchlist")) || [];
+  const bookmarks = JSON.parse(localStorage.getItem("bookmarks")) || [];
+  const completedList = JSON.parse(localStorage.getItem("completedList")) || [];
+
+  set(userRef, {
+    watchlist,
+    bookmarks,
+    completedList,
+  }).then(() => {
+    console.log("Data updated in Firebase Realtime Database.");
+  }).catch((error) => {
+    console.error("Error occurred while updating data in Firebase Realtime Database:", error);
+  });
 });
