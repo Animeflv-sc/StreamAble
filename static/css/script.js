@@ -53,19 +53,24 @@ onAuthStateChanged(auth, (user) => {
     const userId = user.uid;
     userRef = ref(database, `users/${userId}`);
 
-    // Get the data from localStorage
     const watchlist = JSON.parse(localStorage.getItem("watchlist")) || [];
     const bookmarks = JSON.parse(localStorage.getItem("bookmarks")) || [];
     const completedList = JSON.parse(localStorage.getItem("completedList")) || [];
 
-    // Get the data from Firebase Realtime database
+    //Check if user has a watchlist in the database, and if yes, compare with localstorage data
     get(userRef).then((snapshot) => {
-      const data = snapshot.val();
-      const firebaseWatchlist = data?.watchlist || [];
-      
-      // Check if the watchlist in the current device is greater than the watchlist in the Firebase Realtime database
-      if (watchlist.length > firebaseWatchlist.length) {
-        // If yes, update the watchlist, completedList, and bookmarks in the Firebase Realtime database
+      const userData = snapshot.val();
+      if (userData && userData.watchlist) {
+        userData.watchlist.forEach((anime) => {
+          if (watchlist.some((localAnime) => localAnime.title === anime.title)) {
+            //if localstorage data has same anime title as database, remove it from watchlist
+            watchlist.splice(watchlist.findIndex((localAnime) => localAnime.title === anime.title), 1);
+          }
+        });
+      }
+
+      //if watchlist isn't empty, update the database
+      if (watchlist.length > 0) {
         set(userRef, {
           email: user.email,
           watchlist,
@@ -77,11 +82,10 @@ onAuthStateChanged(auth, (user) => {
           console.error("Error occurred while saving data to Firebase Realtime Database:", error);
         });
       }
-    }).catch((error) => {
-      console.error("Error occurred while getting data from Firebase Realtime Database:", error);
     });
   }
 });
+
 
 
 
@@ -169,4 +173,37 @@ returnBtn.addEventListener("click", function() {
     main.style.display = "block";
     createacct.style.display = "none";
 });
+
+submitButton.addEventListener("click", function() {
+  const watchlist = JSON.parse(localStorage.getItem("watchlist")) || [];
+  const bookmarks = JSON.parse(localStorage.getItem("bookmarks")) || [];
+  const completedList = JSON.parse(localStorage.getItem("completedList")) || [];
+
+  //Update database only if watchlist isn't empty
+  if (watchlist.length > 0) {
+    //Check if user has a watchlist in the database, and if yes, compare with localstorage data
+    get(userRef).then((snapshot) => {
+      const userData = snapshot.val();
+      if (userData && userData.watchlist) {
+        userData.watchlist.forEach((anime) => {
+          if (watchlist.some((localAnime) => localAnime.title === anime.title)) {
+            //if localstorage data has same anime title as database, remove it from watchlist
+            watchlist.splice(watchlist.findIndex((localAnime) => localAnime.title === anime.title), 1);
+          }
+        });
+      }
+
+      set(userRef, {
+        watchlist,
+        bookmarks,
+        completedList,
+      }).then(() => {
+        console.log("Data updated in Firebase Realtime Database.");
+      }).catch((error) => {
+        console.error("Error occurred while updating data in Firebase Realtime Database:", error);
+      });
+    });
+  }
+});
+
 
