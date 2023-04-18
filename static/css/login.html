@@ -2,64 +2,11 @@
 <html>
 <head>
   <title>Login</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="title" content="StreamAble - Watch High Quality Anime Online" />
-    <meta name="description"
-        content="StreamAble - Watch High Quality Anime Online. You can watch anime online free in HD without Ads. Best place for free find and one-click anime." />
-    <meta name="keywords"
-        content="StreamAble, watch anime online, free anime, anime stream, anime hd, english sub, kissanime, gogoanime, animeultima, 9anime, 123animes, animefreak, vidstreaming, gogo-stream, animekisa, zoro.to, gogoanime.run, animekisa" />
-    <meta name="charset" content="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
-    <meta name="robots" content="index, follow" />
-    <meta name="googlebot" content="index, follow" />
-    <meta name="revisit-after" content="1 days" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <meta http-equiv="Content-Language" content="en" />
-    <meta property="og:title" content="StreamAble - Watch High Quality Anime Online">
-    <meta property="og:description"
-    content="StreamAble - Watch High Quality Anime Online. You can watch anime online free in HD without Ads. Best place for free find and one-click anime.">
-    <meta property="og:locale" content="en_US">
-    <meta property="og:type" content="website">
-    <meta property="og:site_name" content="StreamAble">
-    <meta property="og:url" content="https://streamable-official.vercel.app/">
-    <meta property="twitter:title" content="StreamAble - Watch High Quality Anime Online">
-    <meta property="twitter:description"
-    content="Trending page for anime on StreamAble. You can watch anime online free in HD without Sign up. Best place for free find and one-click anime.">
-    <meta property="twitter:url" content="">
-    <meta property="twitter:card" content="summary">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar" content="#202125">
-	<link rel = "stylesheet" href = "./styles.css">
-  <link rel = "stylesheet" href = "./login.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel = "stylesheet" href = "login.css">
 </head>
 <body>
-	<nav>
-  <div class="menu-icon">
-    <span class="fas fa-bars"></span>
-  </div>
-  <div class="logo">
-    <a href="#"><img src="https://od.lk/s/OTBfMzU2NDg5MDhf/logo.png"></a>
-  </div>
-  <ul class="nav-items">
-    <li><a href="/">Home</a></li>
-    <li><a href="../static/css/bookmark.html">Bookmark</a></li>
-    <li><a href="../static/css/watchlist.html">Watchlist</a></li>
-    <li><a href="https://www.livechart.me/timetable" target="_blank">Schedule</a></li>
-    <li><a href="../static/css/settings.html">Settings</a></li>
-  </ul>
-  <div class="search-icon">
-    <span class="fas fa-search"></span>
-  </div>
-  <div class="cancel-icon">
-    <span class="fas fa-times"></span>
-  </div>
-  <form action="/search" method="GET">
-    <input type="text" name="query" id="query" placeholder="Search Anime..." required>
-    <button type="submit"><i class="fa fa-search"></i></button>
-  </form>
-</nav>
-<div class = "login-container">
+  <div class = "login-container">
     <div id= "main">
       <h1>Sign In</h1>
       <input id = "email" type = "text" placeholder = "Email"></input>
@@ -80,38 +27,5 @@
     </div>
   </div>
   <script type = "module" src = "script.js"></script>
-<script>    
-const menuBtn = document.querySelector(".menu-icon span"); 
-const searchBtn = document.querySelector(".search-icon"); 
-const cancelBtn = document.querySelector(".cancel-icon"); 
-const items = document.querySelector(".nav-items"); 
-const form = document.querySelector("form"); 
-
-menuBtn.onclick = () => { 
-  items.classList.add("active"); 
-  menuBtn.classList.add("hide"); 
-  searchBtn.classList.add("hide"); 
-  cancelBtn.classList.add("show"); 
-  document.body.style.overflow = "hidden"; // prevent scrolling 
-}
-
-cancelBtn.onclick = () => { 
-  items.classList.remove("active"); 
-  menuBtn.classList.remove("hide"); 
-  searchBtn.classList.remove("hide"); 
-  cancelBtn.classList.remove("show"); 
-  form.classList.remove("active"); 
-  cancelBtn.style.color = "#ff3d00"; 
-  document.body.style.overflow = "auto"; // enable scrolling 
-}
-
-searchBtn.onclick = () => { 
-  form.classList.add("active");		 
-  form.style.display = "inline-block"; // or "flex" 
-  searchBtn.classList.add("hide"); 
-  cancelBtn.classList.add("show"); 
-  document.body.style.overflow = "hidden"; // prevent scrolling 
-}  
-</script>
 </body>
 </html>
