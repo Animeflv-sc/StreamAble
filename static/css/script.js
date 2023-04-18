@@ -1,7 +1,7 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
-import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-analytics.js";
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js";
-import { getDatabase } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-database.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-app.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-analytics.js";
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-auth.js";
+import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-database.js";
 
 const firebaseConfig = {
     apiKey: "AIzaSyAn7QiOmZcOkdCXS9Ugp0S6gGMx7x-cDIk",
@@ -59,21 +59,26 @@ createacctbtn.addEventListener("click", function() {
   if(isVerified) {
     createUserWithEmailAndPassword(auth, signupEmail, signupPassword)
       .then((userCredential) => {
-        const userId = userCredential.user.uid;
-        const userRef = ref(database, 'users/' + userId);
-        set(userRef, {
+        // Signed in 
+        const user = userCredential.user;
+        // Add the user to the database
+        set(ref(database, 'users/' + user.uid), {
           email: signupEmail
-        })
-        window.alert("Success! Account created.");
+        }).then(() => {
+          window.alert("Success! Account created.");
+        }).catch((error) => {
+          console.error(error);
+          window.alert("Error occurred. Try again.");
+        });
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
+        // ..
         window.alert("Error occurred. Try again.");
       });
   }
 });
-
 
 submitButton.addEventListener("click", function() {
   email = emailInput.value;
