@@ -1,8 +1,7 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-app.js";
-import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-analytics.js";
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-auth.js";
-import { getDatabase, ref, set, update} from "https://www.gstatic.com/firebasejs/9.19.1/firebase-database.js";
-
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-analytics.js";
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js";
+import { getDatabase } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-database.js";
 
 const firebaseConfig = {
     apiKey: "AIzaSyAn7QiOmZcOkdCXS9Ugp0S6gGMx7x-cDIk",
@@ -23,7 +22,7 @@ const signupButton = document.getElementById("sign-up");
 const emailInput = document.getElementById("email");
 const passwordInput = document.getElementById("password");
 const main = document.getElementById("main");
-const createacct = document.getElementById("create-acct");
+const createacct = document.getElementById("create-acct")
 
 const signupEmailIn = document.getElementById("email-signup");
 const confirmSignupEmailIn = document.getElementById("confirm-email-signup");
@@ -60,23 +59,22 @@ createacctbtn.addEventListener("click", function() {
   if(isVerified) {
     createUserWithEmailAndPassword(auth, signupEmail, signupPassword)
       .then((userCredential) => {
-      // Signed in 
-      const user = userCredential.user;
-      const uid = user.uid;
-      const usersRef = ref(database, 'users/' + uid);
-      set(usersRef, {
-        email: signupEmail
+        const userId = userCredential.user.uid;
+        const userRef = ref(database, 'users/' + userId);
+        set(userRef, {
+          email: signupEmail
+        })
+        window.alert("Success! Account created.");
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        window.alert("Error occurred. Try again.");
       });
-      window.alert("Success! Account created.");
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      // ..
-      window.alert("Error occurred. Try again.");
-    });
   }
 });
+
+
 submitButton.addEventListener("click", function() {
   email = emailInput.value;
   console.log(email);
