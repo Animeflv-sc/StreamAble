@@ -8,15 +8,14 @@
 }
 
 body {
-	background: #000000;
-	font-family: Arial, Helvetica, sans-serif;
+  background-color: #000000;
 }
 
 h1 {
   margin-bottom: 8%;
   text-align: center;
   font-family: "Fredoka One", cursive;
-  color: #0583D2;
+  color: #7D5FFF;
   letter-spacing: 0.1em;
 }
 
@@ -46,93 +45,30 @@ input, button {
   padding: 3%;
   width: 100%;
 }
-/* Set a style for all buttons */
-button {
-  background-color: #04AA6D;
-  color: white;
-  padding: 14px 20px;
-  margin: 8px 0;
-  border: none;
-  cursor: pointer;
-  width: 100%;
-}
 
-button:hover {
-  opacity: 0.8;
-}
-span.psw {
-  float: right;
-  padding-top: 16px;
-}
 .login-container {
-background-color: #fefefe;
-  margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
-  border: 1px solid #888;
-  width: 80%; /* Could be more or less, depending on screen size */
-   padding: 16px;
+  background-color: white;
+  padding: 7%;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  /* horizontal align */
+  width: 40vw;
+  margin-left: 30vw;
+  /* vertical align */
+  height: 70vh;
+  margin-top: 15vh;
 }
 
 #submit, #create-acct-btn {
-  background-color: #0583D2;
+  background-color: #7D5FFF;
   color: white;
   border: none;
   margin-top: 5%;
 }
-/* Extra styles for the cancel button */
-.cancelbtn {
-  width: auto;
-  padding: 10px 18px;
-  background-color: #f44336;
-}
+
 button:hover {
   cursor: pointer;
   opacity: 0.8;
   transition: 0.3s;
-}
-/* The Close Button (x) */
-.close {
-  position: absolute;
-  right: 25px;
-  top: 0;
-  color: #000;
-  font-size: 35px;
-  font-weight: bold;
-}
-.close:hover,
-.close:focus {
-  color: red;
-  cursor: pointer;
-}
-
-/* Add Zoom Animation */
-.animate {
-  -webkit-animation: animatezoom 0.6s;
-  animation: animatezoom 0.6s
-}
-/* The Modal (background) */
-.modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 100; /* Sit on top */
-  left: 0;
-  top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-  padding-top: 60px;
-}
-
-
-@-webkit-keyframes animatezoom {
-  from {-webkit-transform: scale(0)} 
-  to {-webkit-transform: scale(1)}
-}
-  
-@keyframes animatezoom {
-  from {transform: scale(0)} 
-  to {transform: scale(1)}
 }
 
 #sign-up {
@@ -150,29 +86,3 @@ button:hover {
   border: none;
   margin-top: 3%;
 }
-/* Change styles for span and cancel button on extra small screens */
-@media screen and (max-width: 300px) {
-  span.psw {
-     display: block;
-     float: none;
-  }
-  .cancelbtn {
-     width: 100%;
-  }
-}
-    /* Move login button behind search icon on laptop screens */
-    @media screen and (min-width: 768px) {
-      button.login {
-        position: absolute;
-        z-index: -1;
-      }
-    }
-
-    /* Bring login button to front of search bar on smartphone screens */
-    @media screen and (max-width: 767px) {
-      button.login {
-        position: static;
-        z-index: auto;
-        margin-top: 10px;
-      }
-    }
