@@ -109,22 +109,26 @@ createacctbtn.addEventListener("click", function() {
 
 submitButton.addEventListener("click", function() {
   email = emailInput.value;
+  console.log(email);
   password = passwordInput.value;
+  console.log(password);
 
   signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
+      // Signed in
       const user = userCredential.user;
       console.log("Success! Welcome back!");
-
-      // Redirect to homepage after Firebase Authentication is successful
-      window.location.href = "/"; 
+      window.alert("Success! Welcome back!");
+        window.location.href = "./settings.html"; 
+      // ...
     })
     .catch((error) => {
-      console.error("Error occurred while signing in:", error);
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log("Error occurred. Try again.");
       window.alert("Error occurred. Try again.");
     });
 });
-
 
 signupButton.addEventListener("click", function() {
     main.style.display = "none";
@@ -135,4 +139,3 @@ returnBtn.addEventListener("click", function() {
     main.style.display = "block";
     createacct.style.display = "none";
 });
-
