@@ -120,7 +120,7 @@ function createBackup() {
     bookmarks,
   };
   
-  const backupFilename = 'anime_backup_' + new Date().getTime() + '.json';
+  const backupFilename = 'StreamAble_backup_' + new Date().getTime() + '.json';
   const backupDataBlob = new Blob([JSON.stringify(backupData)], {type: 'application/json'});
   
   const downloadLink = document.createElement('a');
