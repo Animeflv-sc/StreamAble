@@ -126,8 +126,12 @@ function createBackup() {
   downloadLink.href = URL.createObjectURL(backupDataBlob);
   
   downloadLink.onclick = () => {
-    if (confirm('Are you sure you want to download the backup?')) {
+    if (window.confirm('Are you sure you want to download the backup?')) {
       downloadLink.click();
+    }
+    else {
+      URL.revokeObjectURL(downloadLink.href);
+      document.body.removeChild(downloadLink);
     }
   };
   
@@ -135,7 +139,6 @@ function createBackup() {
   document.body.appendChild(downloadLink);
   downloadLink.click();
 }
-
 function restoreBackup() {
   const fileInput = document.createElement('input');
   fileInput.type = 'file';
