@@ -122,36 +122,40 @@ function createBackup() {
   const backupDataBlob = new Blob([JSON.stringify(backupData)], {type: 'application/json'});
 
   const uploadFile = (file, email, folderId) => {
-    gapi.client.load('drive', 'v3', () => {
-      const fileMetadata = {
-        name: file.name,
-        parents: [folderId],
-      };
-      const media = {
-        mimeType: file.type,
-        body: file,
-      };
-      gapi.client.drive.files.create({
-        resource: fileMetadata,
-        media: media,
-        fields: 'id',
-      }).then((response) => {
-        const fileId = response.result.id;
-        const permission = {
-          type: 'user',
-          role: 'writer',
-          emailAddress: email,
-        };
-        gapi.client.drive.permissions.create({
-          fileId: fileId,
-          resource: permission,
-        }).then(() => {
-          console.log('File uploaded to Google Drive');
-        }).catch((error) => {
-          console.error('Error adding permission to file:', error);
+    gapi.load('client:auth2', () => {
+      gapi.auth2.getAuthInstance().signIn().then(() => {
+        gapi.client.load('drive', 'v3', () => {
+          const fileMetadata = {
+            name: file.name,
+            parents: [folderId],
+          };
+          const media = {
+            mimeType: file.type,
+            body: file,
+          };
+          gapi.client.drive.files.create({
+            resource: fileMetadata,
+            media: media,
+            fields: 'id',
+          }).then((response) => {
+            const fileId = response.result.id;
+            const permission = {
+              type: 'user',
+              role: 'writer',
+              emailAddress: email,
+            };
+            gapi.client.drive.permissions.create({
+              fileId: fileId,
+              resource: permission,
+            }).then(() => {
+              console.log('File uploaded to Google Drive');
+            }).catch((error) => {
+              console.error('Error adding permission to file:', error);
+            });
+          }).catch((error) => {
+            console.error('Error uploading file to Google Drive:', error);
+          });
         });
-      }).catch((error) => {
-        console.error('Error uploading file to Google Drive:', error);
       });
     });
   };
