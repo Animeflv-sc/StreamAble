@@ -30,78 +30,35 @@
     <meta property="twitter:card" content="summary">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar" content="#202125">
+	
 	<link href="styles.css" rel="stylesheet">
 	
 	<style>
-	/* Body Styles */
-body {
-background: #000000;
+	/* This rule targets only the h1 and p elements */
+h1, p {
   font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-}
-
-/* Header Styles */
-h1 {
-  text-align: center;
-  color: #fff;
-  margin-top: 50px;
-}
-
-/* Paragraph Styles */
-p {
-  text-align: center;
-  font-size: 18px;
-  margin-top: 20px;
-}
-
-/* Link Styles */
-a {
-  text-decoration: none;
-  color: #333;
+  font-size: 2em;
   font-weight: bold;
-  transition: all 0.3s ease;
+  text-align: center;
+  margin: 20px 0;
 }
 
-a:hover {
-  color: #7D5FFF;
-}
-
-/* Unordered List Styles */
-ul {
-  list-style-type: none;
-  padding: 0;
-  margin-top: 30px;
-  display: flex;
-  justify-content: center;
-}
-
-li {
-  margin: 10px;
-  background-color: #7D5FFF;
-  border-radius: 5px;
+/* This rule targets only the button elements within the ul element */
+ul button {
+  display: block;
+  margin: 0 auto;
   padding: 10px 20px;
-  transition: all 0.3s ease;
+  font-size: 1.2em;
+  font-family: Arial, sans-serif;
+  color: #fff;
+  background-color: #007bff;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
-li:hover {
-  background-color: #342b8a;
-}
-
-/* Responsive Styles */
-@media (max-width: 768px) {
-  h1 {
-    font-size: 36px;
-  }
-
-  p {
-    font-size: 16px;
-  }
-
-  li {
-    padding: 10px;
-    margin: 10px;
-  }
+/* This rule changes the appearance of the button when it is hovered over */
+ul button:hover {
+  background-color: #0056b3;
 }
 
 	</style>
@@ -129,11 +86,22 @@ li:hover {
 
 </nav>
 	<h1>Backup and Restore</h1>
-	<p>Click on the links below to go to the backup or restore page:</p>
-	<ul>
-		<li><a href="#">Create backup</a></li>
-		<li><a href="#">Restore backup</a></li>
-	</ul>
+<p>Click on the buttons below to go to the backup or restore page:</p>
+<ul>
+  <li><button onclick="createBackup()">Create backup</button></li>
+  <li><button onclick="restoreBackup()">Restore backup</button></li>
+</ul>
+
+<script>
+  function createBackup() {
+    // code to create backup
+  }
+  
+  function restoreBackup() {
+    // code to restore backup
+  }
+</script>
+
 	<script>    
 const menuBtn = document.querySelector(".menu-icon span"); 
 const searchBtn = document.querySelector(".search-icon"); 
