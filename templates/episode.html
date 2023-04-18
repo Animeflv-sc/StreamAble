@@ -41,8 +41,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
 
 </head>
-<body>
-	<style>
+<style>
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700&display=swap');
 *{
   margin: 0;
@@ -390,25 +389,24 @@ h1{font-family:'Montserrat', sans-serif;font-size:40px;color:white;font-weight:7
 [class*="col-"]{float:left;}
 [class*="col-"]{width:100%;}
 </style>
-	
-	 <nav>
-         <div class="menu-icon">
-            <span class="fas fa-bars"></span>
-         </div>
-         <div class="logo">
-            <a href="#"><img src="https://od.lk/s/OTBfMzU2NDg5MDhf/logo.png"></a>
-         </div>
-         <div class="nav-items">
-	 <li><a href="/">Home</a></li>
-         </div>
-         <div class="search-icon">
-            <span class=""></span>
-         </div>  
-         <div class="cancel-icon">
-         <span class="fas fa-times"></span> </div>      
-        </div>
-      </nav>
-	
+<body>
+<nav>
+  <div class="menu-icon">
+    <span class="fas fa-bars"></span>
+  </div>
+  <div class="logo">
+    <a href="#"><img src="https://od.lk/s/OTBfMzU2NDg5MDhf/logo.png"></a>
+  </div>
+  <ul class="nav-items">
+    <li><a href="/">Home</a></li>
+  </ul>
+  <div class="search-icon">
+    <span class=""></span>
+  </div>
+  <div class="cancel-icon">
+    <span class="fas fa-times"></span>
+  </div>
+</nav>
 <section id="vid-sec">
         <div id="vid-div">
 
@@ -429,7 +427,7 @@ h1{font-family:'Montserrat', sans-serif;font-size:40px;color:white;font-weight:7
         </div>
     </section>
     <section>
-	    	<div id="background">
+	    <div id="background">
             <div id="cover"></div>
         </div>
         <div class="anime row">
@@ -446,9 +444,6 @@ h1{font-family:'Montserrat', sans-serif;font-size:40px;color:white;font-weight:7
     </div>
 	</div>
   </section>
-		    
-	    
-	
     <section id="watch">
         <div class="divo">
             <h2>List Of Episodes:</h2>
@@ -467,7 +462,7 @@ h1{font-family:'Montserrat', sans-serif;font-size:40px;color:white;font-weight:7
   </div>
 </footer>
 <hr>
-    <script>
+<script>
 const menuBtn = document.querySelector(".menu-icon span"); 
 const searchBtn = document.querySelector(".search-icon"); 
 const cancelBtn = document.querySelector(".cancel-icon"); 
@@ -499,6 +494,9 @@ searchBtn.onclick = () => {
   cancelBtn.classList.add("show"); 
   document.body.style.overflow = "hidden"; // prevent scrolling 
 }
+</script>
+	    
+<script>
 function saveBookmark() {
  const title = document.querySelector('.details.col-6 h1').textContent;
   const url = window.location.href;
@@ -572,10 +570,6 @@ function saveBookmark() {
             window.location.href = button.href;
         });
     });
-
-
-
-
         function showDownload() {
         document.getElementById('showdl').style.display = "none";
         document.getElementById('dldiv').classList.toggle('show');
