@@ -50,7 +50,6 @@ var email, password, signupEmail, signupPassword, confirmSignupEmail, confirmSig
 
 onAuthStateChanged(auth, (user) => {
   if (user) {
-    // User is signed in
     const userId = user.uid;
     userRef = ref(database, `users/${userId}`);
 
@@ -59,10 +58,14 @@ onAuthStateChanged(auth, (user) => {
     const bookmarks = JSON.parse(localStorage.getItem("bookmarks")) || [];
     const completedList = JSON.parse(localStorage.getItem("completedList")) || [];
 
-    // Check if the watchlist in localStorage is greater than the one in the database
-    userRef.get().then((snapshot) => {
-      const databaseWatchlist = snapshot.val()?.watchlist || [];
-      if (watchlist.length > databaseWatchlist.length) {
+    // Get the data from Firebase Realtime database
+    get(userRef).then((snapshot) => {
+      const data = snapshot.val();
+      const firebaseWatchlist = data?.watchlist || [];
+      
+      // Check if the watchlist in the current device is greater than the watchlist in the Firebase Realtime database
+      if (watchlist.length > firebaseWatchlist.length) {
+        // If yes, update the watchlist, completedList, and bookmarks in the Firebase Realtime database
         set(userRef, {
           email: user.email,
           watchlist,
@@ -79,6 +82,7 @@ onAuthStateChanged(auth, (user) => {
     });
   }
 });
+
 
 
 createacctbtn.addEventListener("click", function() {
