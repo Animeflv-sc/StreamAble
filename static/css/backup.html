@@ -106,44 +106,46 @@ p {
 </ul>
 
 <script>
+	// Backup Mechanism
 function createBackup() {
-  const googleDriveEmail = prompt("Please enter your Google Drive email to upload the backup.");
+// Step 1: Create a JSON file with all the necessary data
+const backupData = {
+watchlist: JSON.parse(localStorage.getItem("watchlist")) || [],
+completedList: JSON.parse(localStorage.getItem("completedList")) || [],
+bookmarks: JSON.parse(localStorage.getItem("bookmarks")) || []
+};
+const backupJson = JSON.stringify(backupData);
 
-  // create backup of watchlist, completedList, and bookmarks
-  const backupData = {
-    watchlist: JSON.parse(localStorage.getItem("watchlist")) || [],
-    completedList: JSON.parse(localStorage.getItem("completedList")) || [],
-    bookmarks: JSON.parse(localStorage.getItem("bookmarks")) || []
-  };
+// Step 2: Store the JSON file on the device's storage or on a cloud server
+// In this example, we'll store it in localStorage
+localStorage.setItem("backupData", backupJson);
 
-  // convert backup data to JSON string
-  const backupString = JSON.stringify(backupData);
-
-  // create a new file in Google Drive
-  const file = DriveApp.createFile('my_backup.json', backupString);
-
-  // share the file with the specified Google Drive email
-  file.addViewer(googleDriveEmail);
-
-  // check if the file was created successfully
-  if (file.getId()) {
-    // log success message
-    console.log(`Backup created and shared with ${googleDriveEmail}!`);
-    // return success message
-    return "Backup created and shared successfully!";
-  } else {
-    // log error message
-    console.error("Error creating backup!");
-    // return error message
-    return "Error creating backup!";
-  }
+	
+// Step 5: Notify the user once the backup is created successfully
+alert("Backup created successfully.");
 }
 
+// Restore Mechanism
+function restoreBackup() {
+// Step 1: Check if a backup file is available
+const backupJson = localStorage.getItem("backupData");
+if (!backupJson) {
+alert("No backup found.");
+return;
+}
 
-  
-  function restoreBackup() {
-    // code to restore backup
-  }
+// Step 2: If the backup file is available, retrieve the data from the JSON file
+const backupData = JSON.parse(backupJson);
+
+// Step 3: Load the data into the application
+localStorage.setItem("watchlist", JSON.stringify(backupData.watchlist));
+localStorage.setItem("completedList", JSON.stringify(backupData.completedList));
+localStorage.setItem("bookmarks", JSON.stringify(backupData.bookmarks));
+
+// Step 4: Notify the user once the data is loaded successfully
+alert("Backup restored successfully.");
+}
+
 </script>
 
 	<script>    
