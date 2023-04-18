@@ -59,19 +59,27 @@ onAuthStateChanged(auth, (user) => {
     const bookmarks = JSON.parse(localStorage.getItem("bookmarks")) || [];
     const completedList = JSON.parse(localStorage.getItem("completedList")) || [];
 
-    // Store the data in Firebase Realtime database
-    set(userRef, {
-      email: user.email,
-      watchlist,
-      bookmarks,
-      completedList,
-    }).then(() => {
-      console.log("Data saved to Firebase Realtime Database.");
+    // Check if the watchlist in localStorage is greater than the one in the database
+    userRef.get().then((snapshot) => {
+      const databaseWatchlist = snapshot.val()?.watchlist || [];
+      if (watchlist.length > databaseWatchlist.length) {
+        set(userRef, {
+          email: user.email,
+          watchlist,
+          bookmarks,
+          completedList,
+        }).then(() => {
+          console.log("Data saved to Firebase Realtime Database.");
+        }).catch((error) => {
+          console.error("Error occurred while saving data to Firebase Realtime Database:", error);
+        });
+      }
     }).catch((error) => {
-      console.error("Error occurred while saving data to Firebase Realtime Database:", error);
+      console.error("Error occurred while getting data from Firebase Realtime Database:", error);
     });
   }
 });
+
 
 createacctbtn.addEventListener("click", function() {
   var isVerified = true;
@@ -121,8 +129,23 @@ submitButton.addEventListener("click", function() {
       const user = userCredential.user;
       console.log("Success! Welcome back!");
       window.alert("Success! Welcome back!");
-       window.location.href = "./settings.html"; // redirect to homepage
-      // ...
+      window.location.href = "./settings.html"; // redirect to homepage
+      
+      // Update data in Firebase Realtime Database
+      const watchlist = JSON.parse(localStorage.getItem("watchlist")) || [];
+      const bookmarks = JSON.parse(localStorage.getItem("bookmarks")) || [];
+      const completedList = JSON.parse(localStorage.getItem("completedList")) || [];
+
+      set(userRef, {
+        email,
+        watchlist,
+        bookmarks,
+        completedList,
+      }).then(() => {
+        console.log("Data updated in Firebase Realtime Database.");
+      }).catch((error) => {
+        console.error("Error occurred while updating data in Firebase Realtime Database:", error);
+      });
     })
     .catch((error) => {
       const errorCode = error.code;
@@ -131,6 +154,7 @@ submitButton.addEventListener("click", function() {
       window.alert("Error occurred. Try again.");
     });
 });
+
 
 signupButton.addEventListener("click", function() {
     main.style.display = "none";
@@ -142,18 +166,3 @@ returnBtn.addEventListener("click", function() {
     createacct.style.display = "none";
 });
 
-submitButton.addEventListener("click", function() {
-  const watchlist = JSON.parse(localStorage.getItem("watchlist")) || [];
-  const bookmarks = JSON.parse(localStorage.getItem("bookmarks")) || [];
-  const completedList = JSON.parse(localStorage.getItem("completedList")) || [];
-
-  set(userRef, {
-    watchlist,
-    bookmarks,
-    completedList,
-  }).then(() => {
-    console.log("Data updated in Firebase Realtime Database.");
-  }).catch((error) => {
-    console.error("Error occurred while updating data in Firebase Realtime Database:", error);
-  });
-});
