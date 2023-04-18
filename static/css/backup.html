@@ -52,7 +52,14 @@ p {
 }
 
 /* Style for the buttons */
-ul button {
+.button-container {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.button-container button {
   font-size: 1rem;
   padding: 0.5rem 1.5rem;
   border: none;
@@ -63,10 +70,9 @@ ul button {
   transition: background-color 0.3s ease-in-out;
 }
 
-ul button:hover {
+.button-container button:hover {
   background-color: #2e7d32;
 }
-
 
 	</style>
 </head>
@@ -94,7 +100,7 @@ ul button:hover {
 </nav>
 	<h1>Backup and Restore</h1>
 <p>Click on the buttons below to go to the backup or restore page:</p>
-<ul>
+<ul class="button-container">
   <li><button onclick="createBackup()">Create backup</button></li>
   <li><button onclick="restoreBackup()">Restore backup</button></li>
 </ul>
