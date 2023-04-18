@@ -107,42 +107,34 @@ p {
 <script src="https://apis.google.com/js/api.js"></script>
 
 <script>
-function initClient() {
-  gapi.client.init({
-    apiKey: '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',
-    clientId: '879558571577-b1bj9feh05uoie5f0cpl9bdm6s4c7ejl.apps.googleusercontent.com',
-    discoveryDocs: ['https://www.googleapis.com/discovery/v1/apis/drive/v3/rest'],
-    scope: 'https://www.googleapis.com/auth/drive.file'
-  }).then(() => {
-    // API initialized successfully
-  }, (error) => {
-    console.log(error);
-  });
-}
-	function createBackup() {
-  // Step 1: Create a JSON file with all the necessary data
-  const backupData = {
-    watchlist: JSON.parse(localStorage.getItem("watchlist")) || [],
-    completedList: JSON.parse(localStorage.getItem("completedList")) || [],
-    bookmarks: JSON.parse(localStorage.getItem("bookmarks")) || []
+function createBackup() {
+  // Combine the anime data into a single object
+  const animeData = {
+    watchlist: watchlist,
+    completedList: completedList,
+    bookmarks: bookmarks
   };
-  const backupJson = JSON.stringify(backupData);
 
-  // Step 2: Store the JSON file on Google Drive
-  gapi.client.drive.files.create({
-    resource: {
-      name: 'backup.json'
-    },
-    media: {
-      mimeType: 'application/json',
-      body: backupJson
-    }
-  }).then((response) => {
-    // Step 5: Notify the user once the backup is created successfully
-    alert("Backup created successfully.");
-  }, (error) => {
-    console.log(error);
-  });
+  // Convert the object to a JSON string
+  const jsonData = JSON.stringify(animeData);
+
+  // Create a new blob with the JSON data
+  const blob = new Blob([jsonData], { type: 'application/json' });
+
+  // Create a new URL for the blob
+  const url = URL.createObjectURL(blob);
+
+  // Create a new anchor element for the download link
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'anime_backup.json';
+
+  // Append the anchor to the document body and click it
+  document.body.appendChild(a);
+  a.click();
+
+  // Remove the anchor from the document body
+  document.body.removeChild(a);
 }
 
 </script>
