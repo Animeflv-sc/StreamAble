@@ -136,6 +136,31 @@ function createBackup() {
   downloadLink.click();
 }
 
+function restoreBackup() {
+  const fileInput = document.createElement('input');
+  fileInput.type = 'file';
+  fileInput.accept = '.json';
+  
+  fileInput.onchange = () => {
+    const file = fileInput.files[0];
+    const reader = new FileReader();
+    
+    reader.onload = () => {
+      const backupData = JSON.parse(reader.result);
+      localStorage.setItem('watchlist', JSON.stringify(backupData.watchlist));
+      localStorage.setItem('completedList', JSON.stringify(backupData.completedList));
+      localStorage.setItem('bookmarks', JSON.stringify(backupData.bookmarks));
+      
+      alert('Backup successfully restored!');
+    };
+    
+    reader.readAsText(file);
+  };
+  
+  fileInput.click();
+}
+
+
 
 </script>
 
