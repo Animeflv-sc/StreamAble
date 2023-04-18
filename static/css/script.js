@@ -103,6 +103,7 @@ onAuthStateChanged(auth, (user) => {
     });
   }
 });
+
 createacctbtn.addEventListener("click", function() {
   var isVerified = true;
 
@@ -156,41 +157,31 @@ submitButton.addEventListener("click", function() {
       //Update database only if watchlist isn't empty
       if (watchlist.length > 0) {
         //Check if user has a watchlist in the database, and if yes, compare with localstorage data
+        const userRef = ref(database, `users/${user.uid}`);
         get(userRef).then((snapshot) => {
           const userData = snapshot.val();
-          if (userData && userData.watchlist) {
-            userData.watchlist.forEach((anime) => {
-              if (watchlist.some((localAnime) => localAnime.title === anime.title)) {
-                //if localstorage data has same anime title as database, remove it from watchlist
-                watchlist.splice(watchlist.findIndex((localAnime) => localAnime.title === anime.title), 1);
-              }
-            });
-          }
-
-          set(userRef, {
-            watchlist,
-            bookmarks,
-            completedList,
-          }).then(() => {
-            console.log("Data updated in Firebase Realtime Database.");
-          }).catch((error) => {
-            console.error("Error occurred while updating data in Firebase Realtime Database:", error);
-          });
+          const dbWatchlist = userData.watchlist || [];
+          const dbWatchlistTitles = dbWatchlist.map
+          ((item) => item.title);
+const localStorageWatchlistTitles = watchlist.map((item) => item.title);
+                  // Check if the watchlists are different
+      if (JSON.stringify(dbWatchlistTitles) !== JSON.stringify(localStorageWatchlistTitles)) {
+        set(userRef.child("watchlist"), watchlist).then(() => {
+          console.log("Watchlist data updated in Firebase Realtime Database.");
+        }).catch((error) => {
+          console.error("Error occurred while updating watchlist data in Firebase Realtime Database:", error);
         });
       }
-
-      console.log("Success! Welcome back!");
-      window.alert("Success! Welcome back!");
-      window.location.href = "./settings.html"; // redirect to homepage
-    })
-    .catch((error) => {
+    });
+  }
+})
+ .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
       console.log("Error occurred. Try again.");
       window.alert("Error occurred. Try again.");
     });
 });
-
 
 signupButton.addEventListener("click", function() {
     main.style.display = "none";
