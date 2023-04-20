@@ -67,7 +67,16 @@ h1{text-align:left;font-weight:700;font-size:30px;}
 .overview{display:none;}
 .synopsis,#overview3{display:block;}
 .item-des,.item-head,.genre a{font-size:13px;}
-section img{box-sizing:border-box;height:fit-content;max-width:300px;width:100%;border:5px solid white;border-radius:10px;margin:auto;}
+img {
+  box-sizing: border-box;
+  height: auto;
+  max-width: 100%;
+  border: 5px solid white;
+  border-radius: 10px;
+  margin: auto;
+  display: block;
+}
+
 .poster{box-sizing:border-box;text-align:center;display:inline;margin:0px;overflow:visible;margin-top:20px;width:250px;}
 ::-webkit-scrollbar{width:5px;}
 ::-webkit-scrollbar-track{background:#f1f1f100;}
