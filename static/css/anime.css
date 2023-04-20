@@ -67,7 +67,7 @@ h1{text-align:left;font-weight:700;font-size:30px;}
 .overview{display:none;}
 .synopsis,#overview3{display:block;}
 .item-des,.item-head,.genre a{font-size:13px;}
-img {
+section img {
   box-sizing: border-box;
   height: auto;
   max-width: 100%;
