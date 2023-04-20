@@ -36,7 +36,7 @@ div{box-sizing:border-box;display:block;}
 .poster{box-sizing:border-box;text-align:center;display:inline;padding:20px;margin:0px;overflow:visible;margin-top:20px;}
 .details{width:auto;text-align:left;box-sizing:border-box;display:inline;margin:0px;overflow:visible;padding-bottom:20px;}
 .anime{position:relative;top:0px;left:0px;right:0px;bottom:0px;text-align:center;box-sizing:border-box;width:100%;overflow:visible;height:fit-content;}
-section img{box-sizing:border-box;height:fit-content;max-width:200px;border:5px solid white;border-radius:15px;margin:auto;}
+section img{box-sizing:border-box;height:fit-content;max-width:200px;border:5px solid white;border-radius:10px;margin:auto;}
 h1{font-family:'Montserrat', sans-serif;font-size:40px;color:white;font-weight:700;margin:0px;width:100%;text-align:center;font-size:24px;text-align:center;line-height:1.2em;}
 .mid{width:100%;text-align:center;}
 .cbox{border:1px #6d6d6d solid;color:#dfdfdf;font-family:'Roboto', sans-serif;font-size:14px;font-weight:400;padding:2px 4px;border-radius:4px;}
@@ -67,7 +67,7 @@ h1{text-align:left;font-weight:700;font-size:30px;}
 .overview{display:none;}
 .synopsis,#overview3{display:block;}
 .item-des,.item-head,.genre a{font-size:13px;}
-section img{box-sizing:border-box;height:fit-content;max-width:300px;width:100%;border:5px solid white;border-radius:15px;margin:auto;}
+section img{box-sizing:border-box;height:fit-content;max-width:300px;width:100%;border:5px solid white;border-radius:10px;margin:auto;}
 .poster{box-sizing:border-box;text-align:center;display:inline;margin:0px;overflow:visible;margin-top:20px;width:250px;}
 ::-webkit-scrollbar{width:5px;}
 ::-webkit-scrollbar-track{background:#f1f1f100;}
@@ -86,7 +86,7 @@ h1{text-align:left;font-weight:700;font-size:30px;}
 .item-des,.item-head,.genre a{font-size:13px;}
 #info{display:block;height:100%;position:absolute;top:0;right:0;bottom:0;background:rgba(255, 255, 255, .1);padding-top:30px;overflow:hidden;}
 .poster{box-sizing:border-box;text-align:center;display:inline;margin:0px;overflow:visible;margin-top:20px;width:300px;}
-section img{height:100%;width:100%;border-radius:15px}
+section img{height:100%;width:100%;border-radius:10px}
 }
 #watch{margin-top:20px;}
 .divo{padding:10px;}
