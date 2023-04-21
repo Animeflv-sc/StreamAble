@@ -93,19 +93,19 @@ section img {
 ::-webkit-scrollbar-thumb{background:#888;}
 ::-webkit-scrollbar-thumb:hover{background:#555;}
 }
-@media only screen and (min-width: 700px){
-.col-3{width:25%;}
-.col-6{width:50%;}
+@media only screen and (min-width: 768px){
+.col-3{width:27%;}
+.col-6{width:45%;}
 h1{text-align:left;font-weight:700;font-size:30px;}
 .details{padding-top:40px;}
 .mid{text-align:left;}
-#watchh{margin:50px 0px;}
-.overview{display:none;}
-.synopsis,#overview3{display:block;}
-.item-des,.item-head,.genre a{font-size:13px;}
+#watchh{margin:25px 0px;}
+.overview{display:none; }
+.synopsis,#overview3{display:block;font-size:15px;}
+.item-des,.item-head,.genre a{font-size:10px;}
 #info{display:block;height:100%;position:absolute;top:0;right:0;bottom:0;background:rgba(255, 255, 255, .1);padding-top:30px;overflow:hidden;}
-.poster{box-sizing:border-box;text-align:center;display:inline;margin:0px;overflow:visible;margin-top:20px;width:300px;}
-section img{height:auto; max-width: 100%;;border-radius:10px}
+.poster{box-sizing:border-box;text-align:center;display:inline;margin:-45px;overflow:visible;margin-top:20px;width:300px;}
+section img{height:auto; max-width: 70%;;border-radius:10px}
 }
 #watch{margin-top:20px;}
 .divo{padding:10px;}
@@ -212,7 +212,7 @@ h2{font-family:'Montserrat', sans-serif;color: #7D5FFF;font-weight:500;width:100
 #title1{height:fit-content;width:calc(100% - 247px);text-align:center;}
 #search-div{position:absolute;right:0px;top:25px;}
 }
-@media only screen and (min-width: 700px){
+@media only screen and (max-width: 768px){
 .la-anime{max-width:220px;}
 #title1{height:fit-content;width:calc(100% - 40px);text-align:left; margin-top:20px;}
 #search-div{position:absolute; text-align:center;right:50px;top:55px;}
