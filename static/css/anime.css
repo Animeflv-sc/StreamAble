@@ -40,7 +40,7 @@ section img {
   box-sizing: border-box;
   height: auto;
   max-width: 70%;
-  border: 5px solid white;
+  border: 5px solid gray;
   border-radius: 10px;
   margin: auto;
   display: block;
@@ -81,7 +81,7 @@ section img {
   box-sizing: border-box;
   height: auto;
   max-width: 100%;
-  border: 5px solid white;
+  border: 5px solid gray;
   border-radius: 10px;
   margin: auto;
   display: block;
