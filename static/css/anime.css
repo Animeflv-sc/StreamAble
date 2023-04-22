@@ -39,7 +39,7 @@ div{box-sizing:border-box;display:block;}
 section img {
   box-sizing: border-box;
   height: auto;
-  max-width: 30%;
+  max-width: 50%;
   margin: auto;
   display: block;
 }
