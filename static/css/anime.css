@@ -35,11 +35,11 @@ div{box-sizing:border-box;display:block;}
 #cover{box-sizing:border-box;position:absolute;top:-20px;left:-20px;right:-20px;bottom:-20px;background-size:cover;background-position:center center;background-repeat:no-repeat;filter:blur(20px);opacity:.35;background-attachment:scroll;}
 .poster{box-sizing:border-box;text-align:center;display:inline;padding:20px;margin:0px;overflow:visible;margin-top:20px;}
 .details{width:auto;text-align:left;box-sizing:border-box;display:inline;margin:0px;overflow:visible;padding-bottom:20px;}
-.anime{position:relative;top:0px;left:0px;right:0px;bottom:0px;text-align:center;box-sizing:border-box;width:100%;overflow:visible;height:fit-content;}
+.anime{position:relative;top:0px;left:0px;right:0px;bottom:0px;text-align:center;box-sizing:border-box;width:100%;overflow:visible;height:auto;}
 section img {
   box-sizing: border-box;
   height: auto;
-  max-width: 50%;
+  max-width: 55%;
   margin: auto;
   display: block;
 }
