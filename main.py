@@ -257,3 +257,10 @@ def latest(page):
         return {"html": html}
     except:
         return {"html": ""}
+    
+@app.route("/robots.txt")
+def robots_txt():
+    try:
+        return send_file("static/robots.txt")
+    except:
+        return {"html": ""}
