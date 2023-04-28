@@ -33,97 +33,96 @@
 </head>
 <body>
 <div class="container">
-  <video controls crossorigin playsinline autoplay>
-    <source type="application/x-mpegURL" src="https://techz-cors-bypass.herokuapp.com/{{ m3u8 }}">
+  <video id="player" controls crossorigin playsinline autoplay>
+    <source type="application/x-mpegURL" src="https://techz-cors-bypass.herokuapp.com/<?php echo $_GET['id']; ?>">
   </video>
 </div>
+
 <script> 
-const source = 'https://techz-cors-bypass.herokuapp.com/{{ m3u8 }}';
+const source = 'https://techz-cors-bypass.herokuapp.com/<?php echo $_GET['id']; ?>';
 document.addEventListener("DOMContentLoaded", () => {
-  const video = document.querySelector("video");
+  const video = document.querySelector("#player");
   const defaultOptions = {
-       title: '{{ title }}',
-       controls: [
-		'play-large',
-		'rewind', 
-		'play', 
-		'fast-forward', 
-		'progress', 
-		'current-time', 
-		'duration',  
-		'pip', 
-		'airplay',
-	        'settings',
-		'fullscreen'
-		  ]
-            };
+    title: 'Anikatsu Player',
+    controls: [
+      'play-large',
+      'rewind', 
+      'play', 
+      'fast-forward', 
+      'progress', 
+      'current-time', 
+      'duration',  
+      'pip', 
+      'airplay',
+      'settings',
+      'fullscreen'
+    ]
+  };
   // Check if there is saved current time for this episode
-  const savedTime = localStorage.getItem('{{ title }}');
+  const savedTime = localStorage.getItem('Anikatsu Player');
   if (savedTime !== null) {
     video.currentTime = parseFloat(savedTime);
   }
 
   // Save current time when the video is paused or ended
   video.addEventListener('pause', () => {
-    localStorage.setItem('{{ title }}', video.currentTime.toString());
+    localStorage.setItem('Anikatsu Player', video.currentTime.toString());
   });
 
- 
-video.addEventListener('seeked', () => {
-    localStorage.setItem('{{ title }}', video.currentTime.toString());
+  video.addEventListener('seeked', () => {
+    localStorage.setItem('Anikatsu Player', video.currentTime.toString());
   });
-	
-video.addEventListener('ended', () => {
- document.exitFullscreen();
- });
-	
-if (Hls.isSupported()) {
-  const hls = new Hls({
-    autoStartLoad: true,
-    capLevelToPlayerSize: true,
-    startLevel: 'auto'
+  
+  video.addEventListener('ended', () => {
+    document.exitFullscreen();
   });
-  hls.loadSource(source);
-  hls.on(Hls.Events.MANIFEST_PARSED, function (event, data) {
-    const availableQualities = hls.levels.map((l) => l.height);
-    defaultOptions.quality = {
-      default: availableQualities[0],
-      options: availableQualities,
-      forced: true,
-      onChange: (e) => updateQuality(e)
-    };
-    const player = new Plyr(video, defaultOptions);
-    // Fullscreen enter and exit event listeners
-    player.on('enterfullscreen', () => {
-      // Rotate to landscape if on mobile device
-      if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-        if (screen.orientation) {
-          screen.orientation.lock('landscape');
-        } else if (screen.lockOrientation) {
-          screen.lockOrientation('landscape');
-        } else if (screen.mozLockOrientation) {
-          screen.mozLockOrientation('landscape');
-        } else if (screen.msLockOrientation) {
-          screen.msLockOrientation('landscape');
-        }
-      }
+  
+  if (Hls.isSupported()) {
+    const hls = new Hls({
+      autoStartLoad: true,
+      capLevelToPlayerSize: true,
+      startLevel: 'auto'
     });
-	  
+    hls.loadSource(source);
+    hls.on(Hls.Events.MANIFEST_PARSED, function (event, data) {
+      const availableQualities = hls.levels.map((l) => l.height);
+      defaultOptions.quality = {
+        default: availableQualities[0],
+        options: availableQualities,
+        forced: true,
+        onChange: (e) => updateQuality(e)
+      };
+      const player = new Plyr(video, defaultOptions);
+      // Fullscreen enter and exit event listeners
+      player.on('enterfullscreen', () => {
+        // Rotate to landscape if on mobile device
+        if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+          if (screen.orientation) {
+            screen.orientation.lock('landscape');
+          } else if (screen.lockOrientation) {
+            screen.lockOrientation('landscape');
+          } else if (screen.mozLockOrientation) {
+            screen.mozLockOrientation('landscape');
+          } else if (screen.msLockOrientation) {
+            screen.msLockOrientation('landscape');
+          }
+        }
+      });
 
-    player.on('exitfullscreen', () => {
-      // Rotate to portrait if on mobile device
-      if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-        if (screen.orientation) {
-          screen.orientation.lock('portrait');
-        } else if (screen.lockOrientation) {
-          screen.lockOrientation('portrait');
-        } else if (screen.mozLockOrientation) {
-          screen.mozLockOrientation('portrait');
-        } else if (screen.msLockOrientation) {
-          screen.msLockOrientation('portrait');
+      player.on('exitfullscreen', () => {
+        // Rotate to portrait if on mobile device
+        if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+          if (screen.orientation) {
+            screen.orientation.lock('portrait');
+          } else if (screen.lockOrientation) {
+            screen.lockOrientation('portrait');
+          } else if (screen.mozLockOrientation) {
+            screen.mozLockOrientation('portrait');
+          } else if (screen.msLockOrientation) {
+            screen.msLockOrientation('portrait');
+          }
         }
-      }
-    });
+      });
     // adjust buffer length dynamically
     setInterval(() => {
       const buf = hls.buffered;
