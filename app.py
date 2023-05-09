@@ -29,15 +29,6 @@ def favicon():
         "https://od.lk/s/OTBfMzYxNzUxOTBf/favicon.png"
     )
 
-# Serve the manifest.json file
-@app.route('/manifest.json')
-def serve_manifest():
-    return send_from_directory(os.path.join(app.root_path, 'static'), 'manifest.json')
-
-# Serve the serviceworker.js file
-@app.route('/serviceworker.js')
-def serve_worker():
-    return send_from_directory(os.path.join(app.root_path, 'static'), 'serviceworker.js')
 
     
 @app.route("/")
