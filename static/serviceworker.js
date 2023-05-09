@@ -1,49 +1,20 @@
-const CACHE_NAME = "animeflv-cache-v1";
-const appShellFiles = [
-  "/",
-  "/index.html",
-  "/scripts/main.js",
-  "/styles/main.css",
-];
-
-self.addEventListener("install", (event) => {
-  console.log("Service worker installed");
-  event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
-      console.log("Caching app shell files");
-      return cache.addAll(appShellFiles);
-    })
-  );
-});
-
-self.addEventListener("activate", (event) => {
-  console.log("Service worker activated");
-});
-
-const cacheFirst = async (request) => {
-  const cacheResponse = await caches.match(request);
-  if (cacheResponse) {
-    console.log("Returning response from cache");
-    return cacheResponse;
-  }
-
-  console.log("Fetching response from network");
-  try {
-    const networkResponse = await fetch(request);
-    if (networkResponse.ok) {
-      console.log("Caching network response");
-      const cache = await caches.open(CACHE_NAME);
-      cache.put(request, networkResponse.clone());
-    }
-    return networkResponse;
-  } catch (error) {
-    console.log("Network request failed. Serving offline page.");
-    return new Response("<html><body style='background-color: #000000'><h1>You are offline</h1></body></html>", {
-      headers: { "Content-Type": "text/html" },
-    });
-  }
-};
-
-self.addEventListener("fetch", (event) => {
-  event.respondWith(cacheFirst(event.request));
-});
+// On install - caching the application shell
+self.addEventListener('install', function(event) {
+    event.waitUntil(
+      caches.open('sw-cache').then(function(cache) {
+        // cache any static files that make up the application shell
+        return cache.add('/css/style.css');
+      })
+    );
+  });
+  
+  // On network request
+  self.addEventListener('fetch', function(event) {
+    event.respondWith(
+      // Try the cache
+      caches.match(event.request).then(function(response) {
+        //If response found return it, else fetch again
+        return response || fetch(event.request);
+      })
+    );
+  });
