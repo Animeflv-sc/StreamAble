@@ -9,6 +9,9 @@
 - Fast And Responsive
 - Uses Anilist To Get Data
 - And GoGo Anime For Episodes
-> Website : https://streamable-official.vercel.app/
+> Website 1: https://streamable-official.vercel.app/
+> Website 2: https://streamable-sc.000webhostapp.com/
 
+
+> Website 2 is built with PHP 
 > Powered By TechZApi
