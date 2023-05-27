@@ -15,5 +15,7 @@
 > Website 2: https://streamable-sc.000webhostapp.com/
 
 
+> Website 1 is Powered By TechZApi
+
 > Website 2 is built with PHP 
-> Powered By TechZApi
+
