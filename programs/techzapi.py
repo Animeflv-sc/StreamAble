@@ -3,7 +3,7 @@ import requests
 
 class Gogo:
     def __init__(self, API_KEY) -> None:
-        self.base = "http://techzapi2.herokuapp.com"
+        self.base = "https://api.techzbots.live"
         self.api_key = API_KEY
 
     def gogo_latest(self, page=1):
@@ -56,14 +56,14 @@ class Gogo:
 
 class TechZApi(Gogo):
     def __init__(self, API_KEY) -> None:
-        self.base = "http://techzapi2.herokuapp.com"
+        self.base = "https://api.techzbots.live"
         self.api_key = API_KEY
         super().__init__(API_KEY)
 
     def top_animedex(self):
         try:
             data = (
-                requests.get("https://animedexapi2.herokuapp.com/top").json().get("top")
+                requests.get("https://api.animedex.live/top").json().get("top")
             )
             return data
         except:
